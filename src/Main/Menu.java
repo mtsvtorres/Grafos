@@ -39,6 +39,10 @@ public class Menu {
         grafo.insereListaAdjacencia(arestas);
         grafo.insereListaAdjacenciaBL(arestas);
         
+        BuscaLargura bl = new BuscaLargura();
+        bl.buscaLargura_init(grafo, "Campo Morão");
+        bl.buscaLargura(grafo);
+        
 //        grafo.removeMapVertice("Maringá");
 //        grafo.criaMatrizAdj();
 //        grafo.printaMatrizAdj();

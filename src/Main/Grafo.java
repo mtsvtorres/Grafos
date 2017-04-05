@@ -44,6 +44,7 @@ public class Grafo {
             VerticeBuscaLargura vO = new VerticeBuscaLargura(are.get(i).getVerticeOrigem().getId());
             arestas.add(new ArestaBL(are.get(i).getPeso(),vD,vO));
         }
+        
         //Adiciona os vertices key no map;
         for (int i = 0; i < arestas.size(); i++) {
             ArrayList<ArestaBL> aux = new ArrayList<>();
@@ -60,8 +61,6 @@ public class Grafo {
             ar = new ArestaBL(arestas.get(i).getPeso(), arestas.get(i).getVerticeOrigem(), arestas.get(i).getVerticeDestino());
             getListaAdjacenciaBL().get(arestas.get(i).getVerticeOrigem().getId()).add(ar);
         }
-        
-        printListaAdjacenciaBL();
     }
     
     public void insereListaAdjacencia(ArrayList<Aresta> arestas) {
@@ -124,7 +123,7 @@ public class Grafo {
         for (String str : getListaAdjacenciaBL().keySet()) {
             System.out.print("\t" + str + " -->\t");
             for (ArestaBL ar : getListaAdjacenciaBL().get(str)) {
-                System.out.print(ar.getVerticeDestino().getId() + " - ");
+                System.out.print(ar.getVerticeDestino().getId() + "(" + ar.getVerticeDestino().getCor().toString() + ", " + ar.getVerticeDestino().getD() + ")" + " - ");
             }
             System.out.println("");
         }

@@ -19,6 +19,7 @@ public class VerticeBuscaLargura extends Vertice{
     
     public VerticeBuscaLargura(String id) {
         super(id);
+        this.id = id;
     }
 
     public String getId() {
