@@ -37,11 +37,9 @@ public class Menu {
         arestas.add(arestaMGAxGOIO);
         
         grafo.insereListaAdjacencia(arestas);
+        grafo.insereListaAdjacenciaBL(arestas);
         
 //        grafo.removeMapVertice("Maringá");
-        
-        grafo.printListaAdjacencia();
-        
 //        grafo.criaMatrizAdj();
 //        grafo.printaMatrizAdj();
         

@@ -32,21 +32,35 @@ public class Grafo {
     public HashMap<String, ArrayList<ArestaBL>> getListaAdjacenciaBL() {
         return listaAdjacenciaBL;
     }
-
+    
     public void setListaAdjacenciaBL(HashMap<String, ArrayList<ArestaBL>> listaAdjacenciaBL) {
         this.listaAdjacenciaBL = listaAdjacenciaBL;
     }
 
-    public void criaListaAdjenciaBL(HashMap<String, ArrayList<Aresta>> listaAdjacencia){
-        for (Entry<String, ArrayList<Aresta>> entry : listaAdjacencia.entrySet()) {
-            ArrayList<ArestaBL> aux = new ArrayList<>();
-            listaAdjacenciaBL.put(entry.getKey(), aux);
-            for(int i = 0; i < listaAdjacencia.get(entry.getKey()).size(); i++){
-                Aresta ar;
-                ar = new Aresta(listaAdjacencia.get(entry.getKey()).get(i).getPeso(), listaAdjacencia.get(entry.getKey()).get(i).getVerticeOrigem(), listaAdjacencia.get(entry.getKey()).get(i).getVerticeDestino());
-                getListaAdjacencia().get(listaAdjacencia.get(entry.getKey()).get(i).getVerticeOrigem().getId()).add(ar);
-            }
+    public void insereListaAdjacenciaBL(ArrayList<Aresta> are) {
+        ArrayList<ArestaBL> arestas = new ArrayList<>();
+        for(int i = 0; i < are.size(); i++){
+            VerticeBuscaLargura vD = new VerticeBuscaLargura(are.get(i).getVerticeDestino().getId());
+            VerticeBuscaLargura vO = new VerticeBuscaLargura(are.get(i).getVerticeOrigem().getId());
+            arestas.add(new ArestaBL(are.get(i).getPeso(),vD,vO));
         }
+        //Adiciona os vertices key no map;
+        for (int i = 0; i < arestas.size(); i++) {
+            ArrayList<ArestaBL> aux = new ArrayList<>();
+            getListaAdjacenciaBL().put(arestas.get(i).getVerticeOrigem().getId(), aux);
+        }
+
+        for (int i = 0; i < arestas.size(); i++) {
+            ArrayList<ArestaBL> aux = new ArrayList<>();
+            getListaAdjacenciaBL().put(arestas.get(i).getVerticeDestino().getId(), aux);
+        }
+
+        for (int i = 0; i < arestas.size(); i++) {
+            ArestaBL ar;
+            ar = new ArestaBL(arestas.get(i).getPeso(), arestas.get(i).getVerticeOrigem(), arestas.get(i).getVerticeDestino());
+            getListaAdjacenciaBL().get(arestas.get(i).getVerticeOrigem().getId()).add(ar);
+        }
+        
         printListaAdjacenciaBL();
     }
     
@@ -67,7 +81,6 @@ public class Grafo {
             ar = new Aresta(arestas.get(i).getPeso(), arestas.get(i).getVerticeOrigem(), arestas.get(i).getVerticeDestino());
             getListaAdjacencia().get(arestas.get(i).getVerticeOrigem().getId()).add(ar);
         }
-        criaListaAdjenciaBL(listaAdjacencia);
         printListaAdjacencia();
     }
 
@@ -107,7 +120,7 @@ public class Grafo {
         //Print_results
         System.out.println("Vertices: " + getListaAdjacenciaBL().keySet());
 
-        System.out.println("Lista de adjacencia[" + getListaAdjacenciaBL().values().size() + "]: ");
+        System.out.println("Lista de adjacencia BL[" + getListaAdjacenciaBL().values().size() + "]: ");
         for (String str : getListaAdjacenciaBL().keySet()) {
             System.out.print("\t" + str + " -->\t");
             for (ArestaBL ar : getListaAdjacenciaBL().get(str)) {

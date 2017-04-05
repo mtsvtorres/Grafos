@@ -14,11 +14,43 @@ import java.awt.Color;
 public class VerticeBuscaLargura extends Vertice{
     String id;
     Color cor;
-    float d;
+    Double d;
     VerticeBuscaLargura pi;
     
     public VerticeBuscaLargura(String id) {
         super(id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Color getCor() {
+        return cor;
+    }
+
+    public void setCor(Color cor) {
+        this.cor = cor;
+    }
+
+    public Double getD() {
+        return d;
+    }
+
+    public void setD(Double d) {
+        this.d = d;
+    }
+
+    public VerticeBuscaLargura getPi() {
+        return pi;
+    }
+
+    public void setPi(VerticeBuscaLargura pi) {
+        this.pi = pi;
     }
     
 }
