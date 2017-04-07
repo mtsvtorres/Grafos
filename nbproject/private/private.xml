@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/leotr/Documents/BCC/7semestre/Grafos/Grafos/src/Main/Aresta.java</file>
+            <file>file:/C:/Users/leotr/Documents/BCC/7semestre/Grafos/Grafos/src/Main/Grafo.java</file>
+            <file>file:/C:/Users/leotr/Documents/BCC/7semestre/Grafos/Grafos/src/Main/VerticeBuscaProfundidade.java</file>
+            <file>file:/C:/Users/leotr/Documents/BCC/7semestre/Grafos/Grafos/src/Main/Vertice.java</file>
+            <file>file:/C:/Users/leotr/Documents/BCC/7semestre/Grafos/Grafos/src/Main/VerticeBuscaLargura.java</file>
+            <file>file:/C:/Users/leotr/Documents/BCC/7semestre/Grafos/Grafos/src/Main/ArestaBL.java</file>
+            <file>file:/C:/Users/leotr/Documents/BCC/7semestre/Grafos/Grafos/src/Main/Menu.java</file>
+            <file>file:/C:/Users/leotr/Documents/BCC/7semestre/Grafos/Grafos/src/Main/ArestaBP.java</file>
+        </group>
     </open-files>
 </project-private>
