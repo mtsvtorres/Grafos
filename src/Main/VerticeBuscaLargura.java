@@ -6,6 +6,9 @@
 package Main;
 
 import java.awt.Color;
+import static java.awt.Color.BLACK;
+import static java.awt.Color.GRAY;
+import static java.awt.Color.WHITE;
 
 /**
  *
@@ -54,4 +57,13 @@ public class VerticeBuscaLargura extends Vertice{
         this.pi = pi;
     }
     
+    public String getCorNome(){
+        if(cor == WHITE)
+            return "Branco";
+        if(cor == BLACK)
+            return "Preto";
+        if(cor == GRAY)
+            return "Cinza";
+        return "";
+    }
 }

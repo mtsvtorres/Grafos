@@ -14,7 +14,7 @@ import static jdk.nashorn.internal.objects.Global.Infinity;
  * @author Mateus Torres
  */
 public class BuscaLargura {
-    ArrayList<VerticeBuscaLargura> queue;
+    ArrayList<VerticeBuscaLargura> queue = new ArrayList<>();
 
     public ArrayList<VerticeBuscaLargura> getQueue() {
         return queue;
@@ -45,6 +45,7 @@ public class BuscaLargura {
                     ar.getVerticeDestino().setD(0.0);
                     ar.getVerticeDestino().setPi(null);
                     verticeInicial = ar.getVerticeDestino();
+                    System.out.println(ar.getVerticeDestino().getId()+" -> "+ar.getVerticeDestino().getCorNome()+", "+ar.getVerticeDestino().getD());
                 }
             }
         }
@@ -66,7 +67,7 @@ public class BuscaLargura {
                     ar.getVerticeDestino().setD(vertice.getD() + 1);
                     ar.getVerticeDestino().setPi(vertice);
                     getQueue().add(ar.getVerticeDestino());
-                    
+                    System.out.println(ar.getVerticeDestino().getId()+" -> "+ar.getVerticeDestino().getCorNome()+", "+ar.getVerticeDestino().getD());
                     //Pintar os demais valores do map tambem
                     for (ArrayList<ArestaBL> ar1 : grafo.getListaAdjacenciaBL().values()) {
                         for (ArestaBL ar2 : ar1) {
@@ -80,7 +81,7 @@ public class BuscaLargura {
             }
 
             vertice.setCor(Color.BLACK);
-           
+           System.out.println(vertice.getId()+" -> "+vertice.getCorNome()+", "+vertice.getD());
             for (ArrayList<ArestaBL> ar : grafo.getListaAdjacenciaBL().values()) {
                 for (ArestaBL ar1 : ar) {
                     if(vertice.getId().equals(ar1.getVerticeDestino().getId())){
