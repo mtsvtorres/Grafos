@@ -13,6 +13,8 @@ import java.awt.Color;
  */
 public class VerticeBuscaProfundidade extends VerticeBuscaLargura {
      Double f;
+     VerticeBuscaProfundidade pi;
+     
     public VerticeBuscaProfundidade(String id) {
         super(id);
     }
@@ -49,11 +51,11 @@ public class VerticeBuscaProfundidade extends VerticeBuscaLargura {
         this.d = d;
     }
 
-    public VerticeBuscaLargura getPi() {
+    public VerticeBuscaProfundidade getPi() {
         return pi;
     }
 
-    public void setPi(VerticeBuscaLargura pi) {
+    public void setPi(VerticeBuscaProfundidade pi) {
         this.pi = pi;
     }
      

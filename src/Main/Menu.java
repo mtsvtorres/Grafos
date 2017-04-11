@@ -24,25 +24,35 @@ public class Menu {
         Vertice verticeCM = new Vertice("Campo Mourão");
         Vertice verticeMGA = new Vertice("Maringá");
         Vertice verticeLOND = new Vertice("Londrina");
+        Vertice verticeSJC = new Vertice("São José dos Campos");
 
         Aresta arestaGOIOxCM = new Aresta(110, verticeGOIO, verticeCM);
         Aresta arestaCMxMGA = new Aresta(120, verticeCM, verticeMGA);
         Aresta arestaMGAxLOND = new Aresta(100, verticeMGA, verticeLOND);
         Aresta arestaMGAxGOIO = new Aresta(150, verticeMGA, verticeGOIO);
+        Aresta arestaLONDxSJC = new Aresta(450, verticeLOND, verticeSJC);
+        Aresta arestaSJCxCM = new Aresta(900, verticeSJC, verticeCM);
         
         ArrayList<Aresta> arestas = new ArrayList<>();
         arestas.add(arestaGOIOxCM);
         arestas.add(arestaCMxMGA);
         arestas.add(arestaMGAxLOND);
         arestas.add(arestaMGAxGOIO);
+        arestas.add(arestaLONDxSJC);
+        arestas.add(arestaSJCxCM);
         
         grafo.insereListaAdjacencia(arestas);
-        grafo.insereListaAdjacenciaBL(arestas);
         
         BuscaLargura bl = new BuscaLargura();
+        BuscaProfundidade bp = new BuscaProfundidade();
+        
         bl.buscaLargura_init(grafo, "Campo Mourão");
         bl.buscaLargura(grafo);
+        
+        bp.DFS(grafo);
+        
         grafo.printListaAdjacenciaBL();
+        grafo.printListaAdjacenciaBP();
 //        grafo.removeMapVertice("Maringá");
 //        grafo.criaMatrizAdj();
 //        grafo.printaMatrizAdj();

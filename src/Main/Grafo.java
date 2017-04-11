@@ -19,7 +19,16 @@ public class Grafo {
 
     HashMap<String, ArrayList<Aresta>> listaAdjacencia = new HashMap<>();
     HashMap<String, ArrayList<ArestaBL>> listaAdjacenciaBL = new HashMap<>();
+    HashMap<String, ArrayList<ArestaBP>> listaAdjacenciaBP = new HashMap<>();
     int[][] matrizAdjcencia;
+
+    public HashMap<String, ArrayList<ArestaBP>> getListaAdjacenciaBP() {
+        return listaAdjacenciaBP;
+    }
+
+    public void setListaAdjacenciaBP(HashMap<String, ArrayList<ArestaBP>> listaAdjacenciaBP) {
+        this.listaAdjacenciaBP = listaAdjacenciaBP;
+    }
 
     public HashMap<String, ArrayList<Aresta>> getListaAdjacencia() {
         return listaAdjacencia;
@@ -63,6 +72,32 @@ public class Grafo {
         }
     }
     
+    public void insereListaAdjacenciaBP(ArrayList<Aresta> are) {
+        ArrayList<ArestaBP> arestas = new ArrayList<>();
+        for(int i = 0; i < are.size(); i++){
+            VerticeBuscaProfundidade vD = new VerticeBuscaProfundidade(are.get(i).getVerticeDestino().getId());
+            VerticeBuscaProfundidade vO = new VerticeBuscaProfundidade(are.get(i).getVerticeOrigem().getId());
+            arestas.add(new ArestaBP(are.get(i).getPeso(),vD,vO));
+        }
+        
+        //Adiciona os vertices key no map;
+        for (int i = 0; i < arestas.size(); i++) {
+            ArrayList<ArestaBP> aux = new ArrayList<>();
+            getListaAdjacenciaBP().put(arestas.get(i).getVerticeDestino().getId(), aux);
+        }
+
+        for (int i = 0; i < arestas.size(); i++) {
+            ArrayList<ArestaBP> aux = new ArrayList<>();
+            getListaAdjacenciaBP().put(arestas.get(i).getVerticeOrigem().getId(), aux);
+        }
+
+        for (int i = 0; i < arestas.size(); i++) {
+            ArestaBP ar;
+            ar = new ArestaBP(arestas.get(i).getPeso(), arestas.get(i).getVerticeDestino(), arestas.get(i).getVerticeOrigem());
+            getListaAdjacenciaBP().get(arestas.get(i).getVerticeOrigem().getId()).add(ar);
+        }
+    }
+    
     public void insereListaAdjacencia(ArrayList<Aresta> arestas) {
         //Adiciona os vertices key no map
         for (int i = 0; i < arestas.size(); i++) {
@@ -81,6 +116,9 @@ public class Grafo {
             getListaAdjacencia().get(arestas.get(i).getVerticeOrigem().getId()).add(ar);
         }
         printListaAdjacencia();
+        
+        insereListaAdjacenciaBL(arestas);
+        insereListaAdjacenciaBP(arestas);
     }
 
     public void removeMapVertice(String id) {
@@ -130,6 +168,21 @@ public class Grafo {
         System.out.println("\n");
     }
     
+    public void printListaAdjacenciaBP() {
+        //Print_results
+        System.out.println("Vertices: " + getListaAdjacenciaBP().keySet());
+
+        System.out.println("Lista de adjacencia BP[" + getListaAdjacenciaBP().values().size() + "]: ");
+        for (String str : getListaAdjacenciaBP().keySet()) {
+            System.out.print("\t" + str + " -->\t");
+            for (ArestaBP ar : getListaAdjacenciaBP().get(str)) {
+                System.out.print(ar.getVerticeDestino().getId() + "(" + ar.getVerticeDestino().getCorNome()+ ", " + ar.getVerticeDestino().getD() + ", " + ar.getVerticeDestino().getF() + ")" + " - ");
+            }
+            System.out.println("");
+        }
+        System.out.println("\n");
+    }
+    
     public void criaMatrizAdj() {
         int sizeMatriz = this.listaAdjacencia.size();
         matrizAdjcencia = new int[sizeMatriz][sizeMatriz];
@@ -169,6 +222,19 @@ public class Grafo {
                 System.out.print(matrizAdjcencia[i][j] + " ");
             }
             System.out.println("");
+        }
+    }
+    
+    public void ajustaVerticeBP(VerticeBuscaProfundidade u){
+        for (String str : getListaAdjacenciaBP().keySet()) {
+            for (ArestaBP ar : getListaAdjacenciaBP().get(str)) {
+                if(ar.getVerticeDestino().getId().equals(u.getId())){
+                    ar.getVerticeDestino().setD(u.getD());
+                    ar.getVerticeDestino().setF(u.getF());
+                    ar.getVerticeDestino().setCor(u.getCor());
+                    ar.getVerticeDestino().setPi(u.getPi());
+                }
+            }
         }
     }
 }

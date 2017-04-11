@@ -15,14 +15,12 @@ import static java.awt.Color.WHITE;
  * @author leotr
  */
 public class VerticeBuscaLargura extends Vertice{
-    String id;
     Color cor;
     Double d;
     VerticeBuscaLargura pi;
     
     public VerticeBuscaLargura(String id) {
         super(id);
-        this.id = id;
     }
 
     public String getId() {

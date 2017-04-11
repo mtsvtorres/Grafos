@@ -14,6 +14,12 @@ public class ArestaBP {
     VerticeBuscaProfundidade verticeDestino;
     VerticeBuscaProfundidade verticeOrigem;
 
+    public ArestaBP(double peso, VerticeBuscaProfundidade verticeDestino, VerticeBuscaProfundidade verticeOrigem) {
+        this.peso = peso;
+        this.verticeDestino = verticeDestino;
+        this.verticeOrigem = verticeOrigem;
+    }
+    
     public double getPeso() {
         return peso;
     }
