@@ -52,6 +52,7 @@ public class Menu {
         
         grafo.printListaAdjacenciaBL();
         grafo.printListaAdjacenciaBP();
+        grafo.printTopologia();
 //        grafo.removeMapVertice("Maringá");
 //        grafo.criaMatrizAdj();
 //        grafo.printaMatrizAdj();

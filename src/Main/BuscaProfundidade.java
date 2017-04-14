@@ -32,6 +32,7 @@ public class BuscaProfundidade {
                 }
             }
         }
+        System.out.println("\tTermino da Busca em Profundidade\n");
     }
     
     public void DFS_Visit(Grafo grafo, VerticeBuscaProfundidade u){

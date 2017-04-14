@@ -45,7 +45,6 @@ public class BuscaLargura {
                     ar.getVerticeDestino().setD(0.0);
                     ar.getVerticeDestino().setPi(null);
                     verticeInicial = ar.getVerticeDestino();
-                    System.out.println(ar.getVerticeDestino().getId()+" -> "+ar.getVerticeDestino().getCorNome()+", "+ar.getVerticeDestino().getD());
                 }
             }
         }
@@ -67,7 +66,6 @@ public class BuscaLargura {
                     ar.getVerticeDestino().setD(vertice.getD() + 1);
                     ar.getVerticeDestino().setPi(vertice);
                     getQueue().add(ar.getVerticeDestino());
-                    System.out.println(ar.getVerticeDestino().getId()+" -> "+ar.getVerticeDestino().getCorNome()+", "+ar.getVerticeDestino().getD());
                     //Pintar os demais valores do map tambem
                     for (ArrayList<ArestaBL> ar1 : grafo.getListaAdjacenciaBL().values()) {
                         for (ArestaBL ar2 : ar1) {
@@ -81,7 +79,6 @@ public class BuscaLargura {
             }
 
             vertice.setCor(Color.BLACK);
-           System.out.println(vertice.getId()+" -> "+vertice.getCorNome()+", "+vertice.getD());
             for (ArrayList<ArestaBL> ar : grafo.getListaAdjacenciaBL().values()) {
                 for (ArestaBL ar1 : ar) {
                     if(vertice.getId().equals(ar1.getVerticeDestino().getId())){
@@ -94,6 +91,6 @@ public class BuscaLargura {
             /*map.verMap(grafo);*/
         }
         
-        System.out.println("\tTermino Busca em Largura");
+        System.out.println("\tTermino da Busca em Largura\n");
     }
 }

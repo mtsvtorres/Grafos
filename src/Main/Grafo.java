@@ -250,17 +250,15 @@ public class Grafo {
     public void ordemTopologica(){
         BuscaProfundidade bp = new BuscaProfundidade();
         bp.DFS(this);
-        
-        printTopologia();
     }
     
     public void printTopologia(){
-        System.out.println("Lista de Ordem Topológica: \n");
+        System.out.println("Lista de Ordem Topológica: ");
         for(VerticeBuscaProfundidade vp : getListaDeTopologia()){
-            System.out.println(vp.getId());
+            System.out.println("\t"+vp.getId());
             if(vp != getListaDeTopologia().get(getListaDeTopologia().size()-1)){
-                System.out.println("   |");
-                System.out.println("   v");
+                System.out.println("\t   |");
+                System.out.println("\t   v");
             }
         }
         System.out.println("\n");
