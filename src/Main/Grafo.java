@@ -20,8 +20,17 @@ public class Grafo {
     HashMap<String, ArrayList<Aresta>> listaAdjacencia = new HashMap<>();
     HashMap<String, ArrayList<ArestaBL>> listaAdjacenciaBL = new HashMap<>();
     HashMap<String, ArrayList<ArestaBP>> listaAdjacenciaBP = new HashMap<>();
+    ArrayList<VerticeBuscaProfundidade> listaDeTopologia = new ArrayList<>();
     int[][] matrizAdjcencia;
 
+    public ArrayList<VerticeBuscaProfundidade> getListaDeTopologia() {
+        return listaDeTopologia;
+    }
+
+    public void setListaDeTopologia(ArrayList<VerticeBuscaProfundidade> listaDeTopologia) {
+        this.listaDeTopologia = listaDeTopologia;
+    }
+    
     public HashMap<String, ArrayList<ArestaBP>> getListaAdjacenciaBP() {
         return listaAdjacenciaBP;
     }
@@ -236,5 +245,24 @@ public class Grafo {
                 }
             }
         }
+    }
+    
+    public void ordemTopologica(){
+        BuscaProfundidade bp = new BuscaProfundidade();
+        bp.DFS(this);
+        
+        printTopologia();
+    }
+    
+    public void printTopologia(){
+        System.out.println("Lista de Ordem Topológica: \n");
+        for(VerticeBuscaProfundidade vp : getListaDeTopologia()){
+            System.out.println(vp.getId());
+            if(vp != getListaDeTopologia().get(getListaDeTopologia().size()-1)){
+                System.out.println("   |");
+                System.out.println("   v");
+            }
+        }
+        System.out.println("\n");
     }
 }

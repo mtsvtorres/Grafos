@@ -48,6 +48,7 @@ public class BuscaProfundidade {
         u.setCor(Color.BLACK);
         tempo += 1;
         u.setF(tempo);
+        grafo.getListaDeTopologia().add(u);
         grafo.ajustaVerticeBP(u);
     }
 }

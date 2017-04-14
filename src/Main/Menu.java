@@ -44,12 +44,11 @@ public class Menu {
         grafo.insereListaAdjacencia(arestas);
         
         BuscaLargura bl = new BuscaLargura();
-        BuscaProfundidade bp = new BuscaProfundidade();
         
         bl.buscaLargura_init(grafo, "Campo Mourão");
         bl.buscaLargura(grafo);
         
-        bp.DFS(grafo);
+        grafo.ordemTopologica();
         
         grafo.printListaAdjacenciaBL();
         grafo.printListaAdjacenciaBP();
