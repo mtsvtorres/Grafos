@@ -43,18 +43,18 @@ public class Menu {
         
         grafo.insereListaAdjacencia(arestas);
         
-        BuscaLargura bl = new BuscaLargura();
+//        BuscaLargura bl = new BuscaLargura();
         
-        bl.buscaLargura_init(grafo, "Campo Mourão");
-        bl.buscaLargura(grafo);
+//        bl.buscaLargura_init(grafo, "Campo Mourão");
+//        bl.buscaLargura(grafo);
         
-        grafo.ordemTopologica();
+//        grafo.ordemTopologica();
         
-        grafo.printListaAdjacenciaBL();
-        grafo.printListaAdjacenciaBP();
-        grafo.printTopologia();
+//        grafo.printListaAdjacenciaBL();
+//        grafo.printListaAdjacenciaBP();
+//        grafo.printTopologia();
 //        grafo.removeMapVertice("Maringá");
-//        grafo.criaMatrizAdj();
+        grafo.criaMatrizAdj();
 //        grafo.printaMatrizAdj();
         
     }

@@ -30,7 +30,7 @@ public class Grafo {
     public void setListaDeTopologia(ArrayList<VerticeBuscaProfundidade> listaDeTopologia) {
         this.listaDeTopologia = listaDeTopologia;
     }
-    
+
     public HashMap<String, ArrayList<ArestaBP>> getListaAdjacenciaBP() {
         return listaAdjacenciaBP;
     }
@@ -50,19 +50,19 @@ public class Grafo {
     public HashMap<String, ArrayList<ArestaBL>> getListaAdjacenciaBL() {
         return listaAdjacenciaBL;
     }
-    
+
     public void setListaAdjacenciaBL(HashMap<String, ArrayList<ArestaBL>> listaAdjacenciaBL) {
         this.listaAdjacenciaBL = listaAdjacenciaBL;
     }
 
     public void insereListaAdjacenciaBL(ArrayList<Aresta> are) {
         ArrayList<ArestaBL> arestas = new ArrayList<>();
-        for(int i = 0; i < are.size(); i++){
+        for (int i = 0; i < are.size(); i++) {
             VerticeBuscaLargura vD = new VerticeBuscaLargura(are.get(i).getVerticeDestino().getId());
             VerticeBuscaLargura vO = new VerticeBuscaLargura(are.get(i).getVerticeOrigem().getId());
-            arestas.add(new ArestaBL(are.get(i).getPeso(),vD,vO));
+            arestas.add(new ArestaBL(are.get(i).getPeso(), vD, vO));
         }
-        
+
         //Adiciona os vertices key no map;
         for (int i = 0; i < arestas.size(); i++) {
             ArrayList<ArestaBL> aux = new ArrayList<>();
@@ -80,15 +80,15 @@ public class Grafo {
             getListaAdjacenciaBL().get(arestas.get(i).getVerticeOrigem().getId()).add(ar);
         }
     }
-    
+
     public void insereListaAdjacenciaBP(ArrayList<Aresta> are) {
         ArrayList<ArestaBP> arestas = new ArrayList<>();
-        for(int i = 0; i < are.size(); i++){
+        for (int i = 0; i < are.size(); i++) {
             VerticeBuscaProfundidade vD = new VerticeBuscaProfundidade(are.get(i).getVerticeDestino().getId());
             VerticeBuscaProfundidade vO = new VerticeBuscaProfundidade(are.get(i).getVerticeOrigem().getId());
-            arestas.add(new ArestaBP(are.get(i).getPeso(),vD,vO));
+            arestas.add(new ArestaBP(are.get(i).getPeso(), vD, vO));
         }
-        
+
         //Adiciona os vertices key no map;
         for (int i = 0; i < arestas.size(); i++) {
             ArrayList<ArestaBP> aux = new ArrayList<>();
@@ -106,7 +106,7 @@ public class Grafo {
             getListaAdjacenciaBP().get(arestas.get(i).getVerticeOrigem().getId()).add(ar);
         }
     }
-    
+
     public void insereListaAdjacencia(ArrayList<Aresta> arestas) {
         //Adiciona os vertices key no map
         for (int i = 0; i < arestas.size(); i++) {
@@ -125,7 +125,7 @@ public class Grafo {
             getListaAdjacencia().get(arestas.get(i).getVerticeOrigem().getId()).add(ar);
         }
         printListaAdjacencia();
-        
+
         insereListaAdjacenciaBL(arestas);
         insereListaAdjacenciaBP(arestas);
     }
@@ -161,7 +161,7 @@ public class Grafo {
         }
         System.out.println("\n");
     }
-    
+
     public void printListaAdjacenciaBL() {
         //Print_results
         System.out.println("Vertices: " + getListaAdjacenciaBL().keySet());
@@ -170,13 +170,13 @@ public class Grafo {
         for (String str : getListaAdjacenciaBL().keySet()) {
             System.out.print("\t" + str + " -->\t");
             for (ArestaBL ar : getListaAdjacenciaBL().get(str)) {
-                System.out.print(ar.getVerticeDestino().getId() + "(" + ar.getVerticeDestino().getCorNome()+ ", " + ar.getVerticeDestino().getD() + ")" + " - ");
+                System.out.print(ar.getVerticeDestino().getId() + "(" + ar.getVerticeDestino().getCorNome() + ", " + ar.getVerticeDestino().getD() + ")" + " - ");
             }
             System.out.println("");
         }
         System.out.println("\n");
     }
-    
+
     public void printListaAdjacenciaBP() {
         //Print_results
         System.out.println("Vertices: " + getListaAdjacenciaBP().keySet());
@@ -185,21 +185,48 @@ public class Grafo {
         for (String str : getListaAdjacenciaBP().keySet()) {
             System.out.print("\t" + str + " -->\t");
             for (ArestaBP ar : getListaAdjacenciaBP().get(str)) {
-                System.out.print(ar.getVerticeDestino().getId() + "(" + ar.getVerticeDestino().getCorNome()+ ", " + ar.getVerticeDestino().getD() + ", " + ar.getVerticeDestino().getF() + ")" + " - ");
+                System.out.print(ar.getVerticeDestino().getId() + "(" + ar.getVerticeDestino().getCorNome() + ", " + ar.getVerticeDestino().getD() + ", " + ar.getVerticeDestino().getF() + ")" + " - ");
             }
             System.out.println("");
         }
         System.out.println("\n");
     }
-    
+
     public void criaMatrizAdj() {
-        int sizeMatriz = this.listaAdjacencia.size();
-        matrizAdjcencia = new int[sizeMatriz][sizeMatriz];
+
+        int sizeMatriz = this.listaAdjacencia.size() + 1;
+        String[][] matrizAdjacencia = new String[sizeMatriz][sizeMatriz];
+//        matrizAdjcencia = new String[sizeMatriz][sizeMatriz];
         ArrayList<String> vertices = new ArrayList();
+
+        vertices.add("            ");
 
         for (Entry<String, ArrayList<Aresta>> entry : listaAdjacencia.entrySet()) {
             vertices.add(entry.getKey());
-//            entry.getValue().get(1).getVerticeDestino();
+        }
+
+//        int i = 0;
+//        
+//        while(i<vertices.size()){
+//        
+//            System.out.println(vertices.get(i));
+//            i++;
+//        }
+        for (int i = 0; i < sizeMatriz; i++) {
+            matrizAdjacencia[0][i] = vertices.get(i);
+//            System.out.print(matrizAdjacencia[i][0] + "|");
+        }
+
+        for (int j = 1; j < sizeMatriz; j++) {
+            matrizAdjacencia[j][0] = vertices.get(j);
+//            System.out.println(matrizAdjacencia[0][j] + "|");
+        }
+
+        for (int i = 0; i < sizeMatriz; i++) {
+            for (int j = 0; j < sizeMatriz; j++) {
+                System.out.print(matrizAdjacencia[i][j] + "|");
+            }
+            System.out.println();
         }
 
 //        for (String str : getListaAdjacencia().keySet()) {
@@ -209,18 +236,17 @@ public class Grafo {
 //            }
 //            System.out.println("");
 //        }
-
-        for (int i = 0; i < sizeMatriz; i++) {
-            System.out.println(getListaAdjacencia().get(vertices.get(i)).size());
-            System.out.println(vertices.get(i));
-            for (int j = 0; j < sizeMatriz; j++) {
-                if (false) {
-                    matrizAdjcencia[i][j] = 1;
-                } else {
-                    matrizAdjcencia[i][j] = 0;
-                }
-            }
-        }
+//        for (int i = 0; i < sizeMatriz; i++) {
+//            System.out.println(getListaAdjacencia().get(vertices.get(i)).size());
+//            System.out.println(vertices.get(i));
+//            for (int j = 0; j < sizeMatriz; j++) {
+//                if (false) {
+//                    matrizAdjcencia[i][j] = 1;
+//                } else {
+//                    matrizAdjcencia[i][j] = 0;
+//                }
+//            }
+//        }
     }
 
     public void printaMatrizAdj() {
@@ -233,11 +259,11 @@ public class Grafo {
             System.out.println("");
         }
     }
-    
-    public void ajustaVerticeBP(VerticeBuscaProfundidade u){
+
+    public void ajustaVerticeBP(VerticeBuscaProfundidade u) {
         for (String str : getListaAdjacenciaBP().keySet()) {
             for (ArestaBP ar : getListaAdjacenciaBP().get(str)) {
-                if(ar.getVerticeDestino().getId().equals(u.getId())){
+                if (ar.getVerticeDestino().getId().equals(u.getId())) {
                     ar.getVerticeDestino().setD(u.getD());
                     ar.getVerticeDestino().setF(u.getF());
                     ar.getVerticeDestino().setCor(u.getCor());
@@ -246,17 +272,17 @@ public class Grafo {
             }
         }
     }
-    
-    public void ordemTopologica(){
+
+    public void ordemTopologica() {
         BuscaProfundidade bp = new BuscaProfundidade();
         bp.DFS(this);
     }
-    
-    public void printTopologia(){
+
+    public void printTopologia() {
         System.out.println("Lista de Ordem Topológica: ");
-        for(VerticeBuscaProfundidade vp : getListaDeTopologia()){
-            System.out.println("\t"+vp.getId());
-            if(vp != getListaDeTopologia().get(getListaDeTopologia().size()-1)){
+        for (VerticeBuscaProfundidade vp : getListaDeTopologia()) {
+            System.out.println("\t" + vp.getId());
+            if (vp != getListaDeTopologia().get(getListaDeTopologia().size() - 1)) {
                 System.out.println("\t   |");
                 System.out.println("\t   v");
             }
