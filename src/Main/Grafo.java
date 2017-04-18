@@ -222,6 +222,16 @@ public class Grafo {
 //            System.out.println(matrizAdjacencia[0][j] + "|");
         }
 
+        for (int i = 1; i < sizeMatriz; i++) {
+            for (int j = 1; j < sizeMatriz; j++) {
+                if (true) {
+                    matrizAdjacencia[i][j] = "1";
+                } else {
+                    matrizAdjacencia[i][j] = "0";
+                }
+            }
+        }
+
         for (int i = 0; i < sizeMatriz; i++) {
             for (int j = 0; j < sizeMatriz; j++) {
                 System.out.print(matrizAdjacencia[i][j] + "|");
