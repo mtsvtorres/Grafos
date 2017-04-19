@@ -130,19 +130,24 @@ public class Grafo {
 
     public void removeMapVertice(String id) {
         Vertice vertice = new Vertice(id);
-
+        boolean flag = true;
         //Remove o vetice das keys
         //Remove o vertice do alcance dos vertices keys
         for (ArrayList<Aresta> ar : getListaAdjacencia().values()) {
             for (int i = 0; i < ar.size(); i++) {
                 if (ar.get(i).getVerticeDestino().getId().equals(vertice.getId())) {
                     ar.remove(i);
+                    flag = false;
                 }
             }
         }
-        getListaAdjacencia().remove(id);
-        System.out.println("Remoçao do vertice " + vertice.getId());
+        if(flag){
+            System.out.println("O vertice não existe no grafo!");
+        }else{
+            getListaAdjacencia().remove(id);
+            System.out.println("Remoçao do vertice " + vertice.getId());
 //        printListaAdjacencia();
+        }
     }
 
     public void printListaAdjacencia() {
