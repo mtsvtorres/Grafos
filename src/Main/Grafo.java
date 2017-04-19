@@ -5,10 +5,8 @@
  */
 package Main;
 
-import com.sun.jmx.mbeanserver.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 
 /**
@@ -21,7 +19,7 @@ public class Grafo {
     HashMap<String, ArrayList<ArestaBL>> listaAdjacenciaBL = new HashMap<>();
     HashMap<String, ArrayList<ArestaBP>> listaAdjacenciaBP = new HashMap<>();
     ArrayList<VerticeBuscaProfundidade> listaDeTopologia = new ArrayList<>();
-    int[][] matrizAdjcencia;
+    int[][] matrizAdjacencia;
 
     public ArrayList<VerticeBuscaProfundidade> getListaDeTopologia() {
         return listaDeTopologia;
@@ -55,12 +53,12 @@ public class Grafo {
         this.listaAdjacenciaBL = listaAdjacenciaBL;
     }
 
-    public void insereListaAdjacenciaBL(ArrayList<Aresta> are) {
+    public void insereListaAdjacenciaBL(ArrayList<Aresta> aresta) {
         ArrayList<ArestaBL> arestas = new ArrayList<>();
-        for (int i = 0; i < are.size(); i++) {
-            VerticeBuscaLargura vD = new VerticeBuscaLargura(are.get(i).getVerticeDestino().getId());
-            VerticeBuscaLargura vO = new VerticeBuscaLargura(are.get(i).getVerticeOrigem().getId());
-            arestas.add(new ArestaBL(are.get(i).getPeso(), vD, vO));
+        for (int i = 0; i < aresta.size(); i++) {
+            VerticeBuscaLargura vD = new VerticeBuscaLargura(aresta.get(i).getVerticeDestino().getId());
+            VerticeBuscaLargura vO = new VerticeBuscaLargura(aresta.get(i).getVerticeOrigem().getId());
+            arestas.add(new ArestaBL(aresta.get(i).getPeso(), vD, vO));
         }
 
         //Adiciona os vertices key no map;
@@ -108,6 +106,7 @@ public class Grafo {
     }
 
     public void insereListaAdjacencia(ArrayList<Aresta> arestas) {
+
         //Adiciona os vertices key no map
         for (int i = 0; i < arestas.size(); i++) {
             ArrayList<Aresta> aux = new ArrayList<>();
@@ -124,7 +123,6 @@ public class Grafo {
             ar = new Aresta(arestas.get(i).getPeso(), arestas.get(i).getVerticeOrigem(), arestas.get(i).getVerticeDestino());
             getListaAdjacencia().get(arestas.get(i).getVerticeOrigem().getId()).add(ar);
         }
-        printListaAdjacencia();
 
         insereListaAdjacenciaBL(arestas);
         insereListaAdjacenciaBP(arestas);
@@ -144,7 +142,7 @@ public class Grafo {
         }
         getListaAdjacencia().remove(id);
         System.out.println("Remoçao do vertice " + vertice.getId());
-        printListaAdjacencia();
+//        printListaAdjacencia();
     }
 
     public void printListaAdjacencia() {
@@ -155,7 +153,7 @@ public class Grafo {
         for (String str : getListaAdjacencia().keySet()) {
             System.out.print("\t" + str + " -->\t");
             for (Aresta ar : getListaAdjacencia().get(str)) {
-                System.out.print(ar.getVerticeDestino().getId() + " - ");
+                System.out.print(ar.getVerticeDestino().getId() + " | ");
             }
             System.out.println("");
         }
@@ -170,7 +168,9 @@ public class Grafo {
         for (String str : getListaAdjacenciaBL().keySet()) {
             System.out.print("\t" + str + " -->\t");
             for (ArestaBL ar : getListaAdjacenciaBL().get(str)) {
-                System.out.print(ar.getVerticeDestino().getId() + "(" + ar.getVerticeDestino().getCorNome() + ", " + ar.getVerticeDestino().getD() + ")" + " - ");
+                System.out.print(ar.getVerticeDestino().getId()
+                        + "(" + ar.getVerticeDestino().getCorNome()
+                        + ", " + ar.getVerticeDestino().getD() + ")" + " - ");
             }
             System.out.println("");
         }
@@ -185,7 +185,10 @@ public class Grafo {
         for (String str : getListaAdjacenciaBP().keySet()) {
             System.out.print("\t" + str + " -->\t");
             for (ArestaBP ar : getListaAdjacenciaBP().get(str)) {
-                System.out.print(ar.getVerticeDestino().getId() + "(" + ar.getVerticeDestino().getCorNome() + ", " + ar.getVerticeDestino().getD() + ", " + ar.getVerticeDestino().getF() + ")" + " - ");
+                System.out.print(ar.getVerticeDestino().getId()
+                        + "(" + ar.getVerticeDestino().getCorNome()
+                        + ", " + ar.getVerticeDestino().getD()
+                        + ", " + ar.getVerticeDestino().getF() + ")" + " - ");
             }
             System.out.println("");
         }
@@ -194,77 +197,62 @@ public class Grafo {
 
     public void criaMatrizAdj() {
 
-        int sizeMatriz = this.listaAdjacencia.size() + 1;
-        String[][] matrizAdjacencia = new String[sizeMatriz][sizeMatriz];
-//        matrizAdjcencia = new String[sizeMatriz][sizeMatriz];
-        ArrayList<String> vertices = new ArrayList();
+        int sizeMatriz = this.listaAdjacencia.size();
+        matrizAdjacencia = new int[sizeMatriz][sizeMatriz]; //Cria a matriz sem os indices
 
-        vertices.add("            ");
+        ArrayList<String> vertices = new ArrayList(); // Vetor com o nome(id) de todos os vértices
 
-        for (Entry<String, ArrayList<Aresta>> entry : listaAdjacencia.entrySet()) {
+        for (Entry<String, ArrayList<Aresta>> entry : listaAdjacencia.entrySet()) { //Pega o nome dos vértices 
             vertices.add(entry.getKey());
         }
 
-//        int i = 0;
-//        
-//        while(i<vertices.size()){
-//        
-//            System.out.println(vertices.get(i));
-//            i++;
-//        }
-        for (int i = 0; i < sizeMatriz; i++) {
-            matrizAdjacencia[0][i] = vertices.get(i);
-//            System.out.print(matrizAdjacencia[i][0] + "|");
-        }
-
-        for (int j = 1; j < sizeMatriz; j++) {
-            matrizAdjacencia[j][0] = vertices.get(j);
-//            System.out.println(matrizAdjacencia[0][j] + "|");
-        }
-
-        for (int i = 1; i < sizeMatriz; i++) {
-            for (int j = 1; j < sizeMatriz; j++) {
-                if (true) {
-                    matrizAdjacencia[i][j] = "1";
-                } else {
-                    matrizAdjacencia[i][j] = "0";
-                }
-            }
-        }
-
-        for (int i = 0; i < sizeMatriz; i++) {
+        for (int i = 0; i < sizeMatriz; i++) { //Concatena os vetores em uma matriz
             for (int j = 0; j < sizeMatriz; j++) {
-                System.out.print(matrizAdjacencia[i][j] + "|");
+                matrizAdjacencia[i][j] = matrizAdjLinha(vertices, i)[j];
             }
-            System.out.println();
         }
 
-//        for (String str : getListaAdjacencia().keySet()) {
-//            System.out.print("\t" + str + " -->\t");
-//            for (Aresta ar : getListaAdjacencia().get(str)) {
-//                System.out.print(ar.getVerticeDestino().getId() + " - ");
-//            }
-//            System.out.println("");
-//        }
+//Esses dois for's printam os indices para melhor visualização da matriz de adjacencia, porém não estão mais unidos.
+//        System.out.print("\t");
 //        for (int i = 0; i < sizeMatriz; i++) {
-//            System.out.println(getListaAdjacencia().get(vertices.get(i)).size());
-//            System.out.println(vertices.get(i));
-//            for (int j = 0; j < sizeMatriz; j++) {
-//                if (false) {
-//                    matrizAdjcencia[i][j] = 1;
-//                } else {
-//                    matrizAdjcencia[i][j] = 0;
-//                }
-//            }
+//            System.out.print(vertices.get(i) + "|");
+////            System.out.println();
 //        }
+//        System.out.println();
+//
+//        for (int i = 0; i < sizeMatriz; i++) {
+//            System.out.print(vertices.get(i) + "|");
+//            matrizAdjLinha(vertices, i);
+//            System.out.println();
+//        }
+    }
+
+    public int[] matrizAdjLinha(ArrayList<String> vertices, int linhaDaMatriz) {
+        int[] vetLinha = new int[vertices.size()];
+        for (int i = 0; i < vetLinha.length; i++) {
+            vetLinha[i] = 0;
+        }
+
+        for (int i = 0; i < getListaAdjacencia().get(vertices.get(linhaDaMatriz)).size(); i++) {
+            
+            vetLinha[vertices.indexOf(getListaAdjacencia().get(vertices.get(linhaDaMatriz)).get(i).getVerticeDestino().getId())] = 1;
+        }
+
+//        for (int i = 0; i < vetLinha.length; i++) {
+//            System.out.print("\t" + vetLinha[i] + " ");
+//        }
+//        
+        return vetLinha;
     }
 
     public void printaMatrizAdj() {
         int sizeMatriz = this.listaAdjacencia.size();
 
+        System.out.println("Matriz de Adjacência :\n");
+
         for (int i = 0; i < sizeMatriz; i++) {
             for (int j = 0; j < sizeMatriz; j++) {
-                System.out.print(matrizAdjcencia[i][j] + " ");
+                System.out.print("\t" + matrizAdjacencia[i][j] + " ");
             }
             System.out.println("");
         }
@@ -289,7 +277,7 @@ public class Grafo {
     }
 
     public void printTopologia() {
-        System.out.println("Lista de Ordem Topológica: ");
+        System.out.println("Ordem Topológica: ");
         for (VerticeBuscaProfundidade vp : getListaDeTopologia()) {
             System.out.println("\t" + vp.getId());
             if (vp != getListaDeTopologia().get(getListaDeTopologia().size() - 1)) {

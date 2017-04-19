@@ -10,8 +10,7 @@ package Main;
  * @author Mateus Torres
  */
 public class Aresta {
-    
-    
+
     double peso;
     Vertice verticeDestino;
     Vertice verticeOrigem;
@@ -20,6 +19,12 @@ public class Aresta {
 
         this.peso = peso;
         this.verticeDestino = verticeDestino;
+        this.verticeOrigem = verticeOrigem;
+    }
+
+    public Aresta(double peso, Vertice verticeOrigem) {
+
+        this.peso = peso;
         this.verticeOrigem = verticeOrigem;
     }
 
