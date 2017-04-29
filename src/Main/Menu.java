@@ -26,6 +26,12 @@ public class Menu {
         Vertice verticeLOND = new Vertice("Londrina");
         Vertice verticeSJC = new Vertice("São José");
 
+        grafo.vertices.add(verticeCM);
+        grafo.vertices.add(verticeGOIO);
+        grafo.vertices.add(verticeMGA);
+        grafo.vertices.add(verticeLOND);
+        grafo.vertices.add(verticeSJC);
+        
         Aresta arestaGOIOxCM = new Aresta(110, verticeGOIO, verticeCM);
         Aresta arestaCMxMGA = new Aresta(120, verticeCM, verticeMGA);
         Aresta arestaMGAxLOND = new Aresta(100, verticeMGA, verticeLOND);
@@ -44,7 +50,7 @@ public class Menu {
 
 //        Lista de Adjacência
         grafo.insereListaAdjacencia(arestas);
-        grafo.printListaAdjacencia();
+//        grafo.printListaAdjacencia();
         
 //        Teste de Busca em Largura
 //        BuscaLargura bl = new BuscaLargura();
@@ -52,20 +58,24 @@ public class Menu {
 //        bl.buscaLargura(grafo);
 //        grafo.printListaAdjacenciaBL();
         
+//      Teste da Busca em Profundidade
+//        BuscaProfundidade bp = new BuscaProfundidade();
+//        bp.DFS(grafo);
 //        grafo.printListaAdjacenciaBP();
 
 //        Teste Topologia
-//        grafo.ordemTopologica();
-//        grafo.printTopologia();
-        
+        OrdemTopologica ot = new OrdemTopologica();
+        ot.criarOrdemTopologica(grafo);
+        ot.printTopologia();
+//        
 
 //        Teste de remoção de vértice
 //        grafo.removeMapVertice("Maringá");
 //        grafo.printListaAdjacencia();
         
 //        Gera a Matriz de Adjacência
-        grafo.criaMatrizAdj();
-        grafo.printaMatrizAdj();
+//        grafo.criaMatrizAdj();
+//        grafo.printaMatrizAdj();
         
     }
 

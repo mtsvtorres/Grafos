@@ -28,7 +28,7 @@ public class BuscaProfundidade {
         for (String str : grafo.getListaAdjacenciaBP().keySet()) {
             for (ArestaBP ar : grafo.getListaAdjacenciaBP().get(str)) {
                 if(ar.getVerticeDestino().getCor().equals(Color.WHITE)){
-                    DFS_Visit(grafo, ar.getVerticeDestino());
+                    DFS_Visit(grafo, ar.getVerticeOrigem());
                 }
             }
         }
@@ -41,6 +41,12 @@ public class BuscaProfundidade {
         u.setCor(Color.GRAY);
         grafo.ajustaVerticeBP(u);
         for (ArestaBP ar : grafo.getListaAdjacenciaBP().get(u.getId())) {
+            if(ar.getVerticeDestino().getCor().equals(Color.GRAY)){
+                grafo.setCiclico(true);
+            }
+            if(ar.getVerticeDestino().getCor().equals(Color.BLACK)){
+                grafo.setCiclico(true);
+            }
             if(ar.getVerticeDestino().getCor().equals(Color.WHITE)){
                 ar.getVerticeDestino().setPi(u);
                 DFS_Visit(grafo, ar.getVerticeDestino());
@@ -49,7 +55,6 @@ public class BuscaProfundidade {
         u.setCor(Color.BLACK);
         tempo += 1;
         u.setF(tempo);
-        grafo.getListaDeTopologia().add(u);
         grafo.ajustaVerticeBP(u);
     }
 }

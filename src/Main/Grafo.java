@@ -18,15 +18,33 @@ public class Grafo {
     HashMap<String, ArrayList<Aresta>> listaAdjacencia = new HashMap<>();
     HashMap<String, ArrayList<ArestaBL>> listaAdjacenciaBL = new HashMap<>();
     HashMap<String, ArrayList<ArestaBP>> listaAdjacenciaBP = new HashMap<>();
-    ArrayList<VerticeBuscaProfundidade> listaDeTopologia = new ArrayList<>();
+    ArrayList<Vertice> vertices = new ArrayList<>();
+    ArrayList<VerticeBuscaProfundidade> verticesBP = new ArrayList<>();
     int[][] matrizAdjacencia;
 
-    public ArrayList<VerticeBuscaProfundidade> getListaDeTopologia() {
-        return listaDeTopologia;
+    public ArrayList<Vertice> getVertices() {
+        return vertices;
     }
 
-    public void setListaDeTopologia(ArrayList<VerticeBuscaProfundidade> listaDeTopologia) {
-        this.listaDeTopologia = listaDeTopologia;
+    public void setVertices(ArrayList<Vertice> vertices) {
+        this.vertices = vertices;
+    }
+
+    public ArrayList<VerticeBuscaProfundidade> getVerticesBP() {
+        return verticesBP;
+    }
+
+    public void setVerticesBP(ArrayList<VerticeBuscaProfundidade> verticesBP) {
+        this.verticesBP = verticesBP;
+    }
+    boolean ciclico = false;
+
+    public boolean isCiclico() {
+        return ciclico;
+    }
+
+    public void setCiclico(boolean ciclico) {
+        this.ciclico = ciclico;
     }
 
     public HashMap<String, ArrayList<ArestaBP>> getListaAdjacenciaBP() {
@@ -55,8 +73,12 @@ public class Grafo {
 
     public void insereListaAdjacenciaBL(ArrayList<Aresta> aresta) {
         ArrayList<ArestaBL> arestas = new ArrayList<>();
+        for (int i = 0; i < getVertices().size(); i++) {
+            VerticeBuscaProfundidade vbp = new VerticeBuscaProfundidade(getVertices().get(i).getId());
+            getVerticesBP().add(vbp);
+        }
         for (int i = 0; i < aresta.size(); i++) {
-            VerticeBuscaLargura vD = new VerticeBuscaLargura(aresta.get(i).getVerticeDestino().getId());
+            VerticeBuscaLargura vD = getVerticesBP().indexOf(aresta.get(i).getVerticeDestino().getId());
             VerticeBuscaLargura vO = new VerticeBuscaLargura(aresta.get(i).getVerticeOrigem().getId());
             arestas.add(new ArestaBL(aresta.get(i).getPeso(), vD, vO));
         }
@@ -267,29 +289,9 @@ public class Grafo {
         for (String str : getListaAdjacenciaBP().keySet()) {
             for (ArestaBP ar : getListaAdjacenciaBP().get(str)) {
                 if (ar.getVerticeDestino().getId().equals(u.getId())) {
-                    ar.getVerticeDestino().setD(u.getD());
-                    ar.getVerticeDestino().setF(u.getF());
-                    ar.getVerticeDestino().setCor(u.getCor());
-                    ar.getVerticeDestino().setPi(u.getPi());
+                    ar.setVerticeDestino(u);
                 }
             }
         }
-    }
-
-    public void ordemTopologica() {
-        BuscaProfundidade bp = new BuscaProfundidade();
-        bp.DFS(this);
-    }
-
-    public void printTopologia() {
-        System.out.println("Ordem Topológica: ");
-        for (VerticeBuscaProfundidade vp : getListaDeTopologia()) {
-            System.out.println("\t" + vp.getId());
-            if (vp != getListaDeTopologia().get(getListaDeTopologia().size() - 1)) {
-                System.out.println("\t   |");
-                System.out.println("\t   v");
-            }
-        }
-        System.out.println("\n");
     }
 }
