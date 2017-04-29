@@ -73,12 +73,8 @@ public class Grafo {
 
     public void insereListaAdjacenciaBL(ArrayList<Aresta> aresta) {
         ArrayList<ArestaBL> arestas = new ArrayList<>();
-        for (int i = 0; i < getVertices().size(); i++) {
-            VerticeBuscaProfundidade vbp = new VerticeBuscaProfundidade(getVertices().get(i).getId());
-            getVerticesBP().add(vbp);
-        }
         for (int i = 0; i < aresta.size(); i++) {
-            VerticeBuscaLargura vD = getVerticesBP().indexOf(aresta.get(i).getVerticeDestino().getId());
+            VerticeBuscaLargura vD = new VerticeBuscaLargura(aresta.get(i).getVerticeDestino().getId());
             VerticeBuscaLargura vO = new VerticeBuscaLargura(aresta.get(i).getVerticeOrigem().getId());
             arestas.add(new ArestaBL(aresta.get(i).getPeso(), vD, vO));
         }
@@ -103,9 +99,21 @@ public class Grafo {
 
     public void insereListaAdjacenciaBP(ArrayList<Aresta> are) {
         ArrayList<ArestaBP> arestas = new ArrayList<>();
+        for (int i = 0; i < getVertices().size(); i++) {
+            VerticeBuscaProfundidade vbp = new VerticeBuscaProfundidade(getVertices().get(i).getId());
+            getVerticesBP().add(vbp);
+        }
         for (int i = 0; i < are.size(); i++) {
-            VerticeBuscaProfundidade vD = new VerticeBuscaProfundidade(are.get(i).getVerticeDestino().getId());
-            VerticeBuscaProfundidade vO = new VerticeBuscaProfundidade(are.get(i).getVerticeOrigem().getId());
+            VerticeBuscaProfundidade vD = null;
+            VerticeBuscaProfundidade vO = null;
+            for (VerticeBuscaProfundidade vbp : getVerticesBP()) {
+                if (vbp.getId().equals(are.get(i).getVerticeDestino().getId())) {
+                    vD = vbp;
+                }
+                if (vbp.getId().equals(are.get(i).getVerticeOrigem().getId())) {
+                    vO = vbp;
+                }
+            }
             arestas.add(new ArestaBP(are.get(i).getPeso(), vD, vO));
         }
 
@@ -163,9 +171,9 @@ public class Grafo {
                 }
             }
         }
-        if(flag){
+        if (flag) {
             System.out.println("O vertice não existe no grafo!");
-        }else{
+        } else {
             getListaAdjacencia().remove(id);
             System.out.println("Remoçao do vertice " + vertice.getId());
 //        printListaAdjacencia();
@@ -261,7 +269,7 @@ public class Grafo {
         }
 
         for (int i = 0; i < getListaAdjacencia().get(vertices.get(linhaDaMatriz)).size(); i++) {
-            
+
             vetLinha[vertices.indexOf(getListaAdjacencia().get(vertices.get(linhaDaMatriz)).get(i).getVerticeDestino().getId())] = 1;
         }
 

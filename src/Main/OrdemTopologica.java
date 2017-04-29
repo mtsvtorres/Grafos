@@ -41,8 +41,6 @@ public class OrdemTopologica {
                 getListaDeTopologia().add(ar.getVerticeDestino());
             }
         }
-        
-        listaDeTopologia.sort(new ComparadorVertices());
     }
 
     class ComparadorVertices implements Comparator<VerticeBuscaProfundidade> {
